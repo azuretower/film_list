@@ -5,12 +5,12 @@ from main.models import Film, Director, Actor, Actress
 # Create your views here.
 
 
-def first_view(request):
+def first_view(request, starts_with):
     text_string = ''
 
     films = Film.objects.all()
 
-    directors = Director.objects.filter(name='Abrahams, Jim')
+    directors = Director.objects.filter(name__contains='%s' % starts_with)
 
     for director in directors:
         films = director.film_set.all()
