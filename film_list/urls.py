@@ -11,4 +11,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^first_view/(?P<starts_with>\w+)$', 'main.views.first_view'),
     url(r'^first_view/$', 'main.views.first_view'),
+    url(r'^get_post/$', 'main.views.get_post'),
 )
