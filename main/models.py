@@ -3,14 +3,13 @@ from django.db import models
 # Create your models here.
 
 # Year;Length;Title ;Subject;Actor;Actress;Director;Popularity;Awards;*Image
-# INT ;INT   ;STRING;CAT    ;CAT  ;CAT    ;CAT     ;INT       ;BOOL  ;STRING
 
 
 class Film(models.Model):
-    year = models.IntegerField(null=True, blank=True)
+    year = models.ForeignKey('main.Year', null=True)
     length = models.IntegerField(null=True, blank=True)
     title = models.CharField(max_length=100, null=True, blank=True, unique=True)
-    genre = models.CharField(max_length=100, null=True, blank=True)
+    genre = models.ForeignKey('main.Genre', null=True)
     popularity = models.IntegerField(null=True, blank=True)
     awards = models.CharField(max_length=100, null=True, blank=True)
     director = models.ForeignKey('main.Director', null=True)
@@ -21,6 +20,20 @@ class Film(models.Model):
         return self.title
 
 
+class Year(models.Model):
+    year = models.IntegerField(null=True, blank=True, unique=True)
+
+    def __unicode__(self):
+        return self.year
+
+
+class Genre(models.Model):
+    genre = models.CharField(max_length=100, null=True, blank=True, unique=True)
+
+    def __unicode__(self):
+        return self.genre
+
+
 class Director(models.Model):
     name = models.CharField(max_length=100, null=True, blank=True, unique=True)
 
@@ -28,7 +41,7 @@ class Director(models.Model):
     verbose_name_plural = 'Directors'
 
     def __unicode__(self):
-        return self.title
+        return self.name
 
 
 class Actor(models.Model):
@@ -38,7 +51,7 @@ class Actor(models.Model):
     verbose_name_plural = 'Actors'
 
     def __unicode__(self):
-        return self.title
+        return self.name
 
 
 class Actress(models.Model):
@@ -48,4 +61,4 @@ class Actress(models.Model):
     verbose_name_plural = 'Actresses'
 
     def __unicode__(self):
-        return self.title
+        return self.name
